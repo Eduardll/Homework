@@ -58,6 +58,7 @@ public class MyHashMap<K,V> {
         }
         bucket.add(new Node<>(key,value));
         size++;
+        if(size == capacity) resize();
     }
 
     public V remove(K key) {
