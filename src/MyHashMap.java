@@ -93,4 +93,22 @@ public class MyHashMap<K,V> {
             }
         }
     }
+    private void resize(){
+        int newCapacity = capacity * 2;
+        LinkedList<Node<K, V>>[] newBuckets = new LinkedList[newCapacity];
+
+        for (int i = 0; i < newCapacity; i++) {
+            newBuckets[i] = new LinkedList<>();
+        }
+
+        for (LinkedList<Node<K, V>> bucket : buckets) {
+            for (Node<K, V> node : bucket) {
+                int newBucketIndex = Math.abs(node.key.hashCode()) % newCapacity;
+                newBuckets[newBucketIndex].add(node);
+            }
+        }
+
+        buckets = newBuckets;
+        capacity = newCapacity;
+    }
 }
